@@ -1,6 +1,8 @@
 package kz.smavy
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,7 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 
-class MainActivity : AppCompatActivity(), OnClickListener{
+class LoginActivity : AppCompatActivity(), OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,10 +25,13 @@ class MainActivity : AppCompatActivity(), OnClickListener{
 
 
     override fun onClick(clicked: View?) {
-        val button: Button = clicked as Button
+        val prefs: SharedPreferences = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
 
-        val intent: Intent = Intent(this, CourseListActivity::class.java)
-        startActivity(intent)
+        val editor = prefs.edit()
+        editor.putString("token", "LOGGED IN")
+        editor.apply()
+
+        finish()
     }
 
 
